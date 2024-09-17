@@ -26,6 +26,7 @@ export function ThreejsPlane() {
 
     const textureLoader = new TextureLoader()
       textureLoader.load(imageUrl, (t) => {
+        if (!materialRef.current) return;
         materialRef.current.map = t
         materialRef.current.needsUpdate = true
       })
@@ -41,7 +42,7 @@ export function ThreejsPlane() {
 
     const textureLoader = new TextureLoader()
       textureLoader.load(imageUrl, (t) => {
-        console.log(materialRef.current);
+        if (!materialRef.current) return;
         materialRef.current.displacementMap = t
         materialRef.current.needsUpdate = true
       })
