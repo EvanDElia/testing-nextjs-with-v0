@@ -2,7 +2,7 @@
 
 import { Canvas, useLoader } from "@react-three/fiber"
 import { OrbitControls, Plane } from "@react-three/drei"
-import { TextureLoader } from 'three'
+import { TextureLoader, Texture, MeshStandardMaterial } from 'three'
 import { useControls } from 'leva'
 import { filePicker } from "leva-file-picker"
 import {
@@ -16,7 +16,7 @@ export function ThreejsPlane() {
   const displacementMap = useLoader(TextureLoader, '/depth1.png');
   const diffuseMap = useLoader(TextureLoader, '/aitest.jfif');
 
-  const materialRef = useRef()
+  const materialRef = useRef<MeshStandardMaterial>()
 
   async function onChange(file: File) {
     if (!file || !file.type) return;
