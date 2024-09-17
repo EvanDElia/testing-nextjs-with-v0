@@ -16,7 +16,7 @@ export function ThreejsPlane() {
   const displacementMap = useLoader(TextureLoader, '/depth1.png');
   const diffuseMap = useLoader(TextureLoader, '/aitest.jfif');
 
-  const materialRef = useRef<MeshStandardMaterial>()
+  const materialRef = useRef<MeshStandardMaterial>(null)
 
   async function onChange(file: File) {
     if (!file || !file.type) return;
