@@ -2,7 +2,7 @@
 
 import { Canvas, useLoader } from "@react-three/fiber"
 import { OrbitControls, Plane } from "@react-three/drei"
-import { TextureLoader, Texture, MeshStandardMaterial } from 'three'
+import { TextureLoader, MeshStandardMaterial } from 'three'
 import { useControls } from 'leva'
 import { filePicker } from "leva-file-picker"
 import {
