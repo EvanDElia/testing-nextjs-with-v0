@@ -10,14 +10,23 @@
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@react-three/drei": "^9.112.0",
+    "@react-three/fiber": "^8.17.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "leva": "^0.9.35",
+    "leva-file-picker": "^1.2.3",
     "lucide-react": "^0.439.0",
     "next": "^14.2.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "shadcn-ui": "^0.9.1",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.168.0",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@types/node": "^20",
