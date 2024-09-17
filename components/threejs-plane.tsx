@@ -8,6 +8,8 @@ import { filePicker } from "leva-file-picker"
 import {
   useRef,
 } from 'react'
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 export function ThreejsPlane() {
 
@@ -82,6 +84,7 @@ export function ThreejsPlane() {
         
         <OrbitControls/>
       </Canvas>
+      <SpeedInsights />
     </div>
   )
 }
