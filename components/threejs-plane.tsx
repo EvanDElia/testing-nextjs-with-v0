@@ -1,6 +1,6 @@
 "use client"
 
-import { Canvas, useLoader } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Plane } from "@react-three/drei"
 import { TextureLoader, MeshStandardMaterial } from 'three'
 import { useControls } from 'leva'
@@ -12,9 +12,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 export function ThreejsPlane() {
-
-  const displacementMap = useLoader(TextureLoader, '/depth1.png');
-  const diffuseMap = useLoader(TextureLoader, '/aitest.jfif');
 
   const materialRef = useRef<MeshStandardMaterial>(null)
 
@@ -76,9 +73,9 @@ export function ThreejsPlane() {
           <meshStandardMaterial
             ref={materialRef}
             wireframe={material.wireframe}
-            displacementMap={displacementMap}
+            displacementMap={null}
             displacementScale={material.displacementScale}
-            map={diffuseMap}
+            map={null}
             color="#8c8c8c" />
         </Plane>
         
