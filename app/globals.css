@@ -25,3 +25,13 @@ body {
     text-wrap: balance;
   }
 }
+
+footer {
+  z-index: 999;
+}
+
+.preset_container {
+  top: 0;
+  right: 20px;
+  z-index: 999;
+}

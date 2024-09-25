@@ -1,17 +1,45 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Plane } from "@react-three/drei"
-import { TextureLoader, MeshStandardMaterial } from 'three'
+import React from 'react'
+import { Canvas, useLoader, useThree } from "@react-three/fiber"
+import { OrbitControls, Stats } from "@react-three/drei"
+import { TextureLoader, MeshStandardMaterial, EquirectangularReflectionMapping, Vector3 } from 'three'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import { useControls } from 'leva'
 import { filePicker } from "leva-file-picker"
 import {
   useRef,
 } from 'react'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import GradientButtons from './gradient-buttons'
 
+function EnvironmentMap() {
+  const { scene } = useThree()
+  // const envMap = useLoader(TextureLoader, '/aitest.jfif')
+  const hdrTexture = useLoader(RGBELoader, '/2k.hdr')
 
-export function ThreejsPlane() {
+  const envMap = useControls({
+    environmentIntensity: { value: 1, min: 0, max: 5, step: 0.1 },
+    backgroundBlurriness: { value: 0.05, min: 0, max: 5, step: 0.01 },
+    backgroundIntensity: { value: 1, min: 0, max: 5, step: 0.1 }
+  })
+
+  scene.environmentIntensity = envMap.environmentIntensity
+  scene.backgroundBlurriness = envMap.backgroundBlurriness
+  scene.backgroundIntensity = envMap.backgroundIntensity
+  
+  React.useEffect(() => {
+    hdrTexture.mapping = EquirectangularReflectionMapping
+    scene.background = hdrTexture
+    scene.environment = hdrTexture
+  }, [hdrTexture, scene])
+
+  return null
+}
+
+function Plane() {
+  const texture = useLoader(TextureLoader, '/aitest.jfif')
+  const displacementMap = useLoader(TextureLoader, '/depth1.png')
 
   const materialRef = useRef<MeshStandardMaterial>(null)
 
@@ -24,11 +52,11 @@ export function ThreejsPlane() {
     const imageUrl = urlCreator.createObjectURL(blob)
 
     const textureLoader = new TextureLoader()
-      textureLoader.load(imageUrl, (t) => {
-        if (!materialRef.current) return;
-        materialRef.current.map = t
-        materialRef.current.needsUpdate = true
-      })
+    textureLoader.load(imageUrl, (t) => {
+      if (!materialRef.current) return;
+      materialRef.current.map = t
+      materialRef.current.needsUpdate = true
+    })
   }
 
   async function onChangeDisplacement(file: File) {
@@ -54,11 +82,29 @@ export function ThreejsPlane() {
 
   const material = useControls({
     wireframe: false,
-    displacementScale: { value: 1, min: 0, max: 5, step: 0.1 },
+    displacementScale: { value: 2.5, min: 0, max: 5, step: 0.1 },
     diffuse: filePicker({ onChange, accept }),
-    displacement: filePicker({ onChange: onChangeDisplacement, accept })
+    displacement: filePicker({ onChange: onChangeDisplacement, accept }),
   })
 
+  return (
+    <mesh rotation={[0, 0, 0]}>
+      <planeGeometry args={[10, 10, 128, 128]} />
+      <meshStandardMaterial 
+        map={texture} 
+        displacementMap={displacementMap}
+        displacementScale={material.displacementScale}
+        ref={materialRef}
+        wireframe={material.wireframe}
+      />
+    </mesh>
+  )
+}
+
+
+export function ThreejsPlane() {
+
+  const light = useControls({lightIntensity: { value: 7, min: 0, max: 50, step: 0.5 }})
   return (
     <div className="w-full h-screen" style={{
       position: 'absolute',
@@ -67,21 +113,16 @@ export function ThreejsPlane() {
     }}>
       <Canvas camera={{ position: [0, 2, 9], fov: 75 }}>
         <ambientLight intensity={0.5} />
-        <pointLight position={[2, 2, 2]} intensity={6.5} />
-        
-        <Plane args={[10, 10, 100, 100]}>
-          <meshStandardMaterial
-            ref={materialRef}
-            wireframe={material.wireframe}
-            displacementMap={null}
-            displacementScale={material.displacementScale}
-            map={null}
-            color="#8c8c8c" />
-        </Plane>
-        
-        <OrbitControls/>
+        <pointLight position={[2, 2, 2]} intensity={light.lightIntensity} color={'#f0f'} />
+        <Plane />
+        <EnvironmentMap />
+        <OrbitControls target={new Vector3(0,-1,-1)}/>
       </Canvas>
+
+      <Stats />
       <SpeedInsights />
+
+      <GradientButtons />
     </div>
   )
 }
