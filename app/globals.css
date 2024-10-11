@@ -41,8 +41,13 @@ footer {
   z-index: 999;
 }
 
-button {
+button, a {
   pointer-events: all;
+  text-shadow: #FC0 1px 0 10px;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .file-icon {

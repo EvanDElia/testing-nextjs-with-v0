@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, {useState} from 'react'
 import { Canvas, useLoader, useThree } from "@react-three/fiber"
 import { OrbitControls, Stats } from "@react-three/drei"
 import { TextureLoader, MeshStandardMaterial, EquirectangularReflectionMapping, Vector3 } from 'three'
@@ -178,17 +178,53 @@ function Plane() {
   )
 }
 
+interface ModalProps {
+  open: boolean
+}
+
+const Modal: React.FC<ModalProps> = ({open}) => {
+  const ref = useRef<HTMLDivElement>(null)
+  if (open && ref?.current) {
+    ref.current.style.opacity = '1';
+  } else if (ref?.current) {
+    ref.current.style.opacity = '0';
+  }
+  return (
+    <div ref={ref} className="absolute flex flex-col w-full h-screen justify-center items-center" style={{
+      top: 0,
+      margin: '0 auto',
+      backdropFilter: 'blur(9px)',
+      transition: 'opacity 0.2s ease-out',
+      pointerEvents: 'none'
+    }}>
+      <div style={{
+        width: '500px',
+        maxHeight: '100dvh',
+        background: '#0C0C0C',
+        borderRadius: '20px',
+        padding: '24px',
+        textAlign: 'justify',
+        overflowY: 'auto',
+        pointerEvents: 'all'
+      }}>
+        Click and drag to move the camera around the scene. You can also use a scroll wheel to zoom and right click to pan the camera. Use the gui at the top right to add your own image and depth map to be applied to the plane. You can also change the intensity of the environment map and the environment map blur. And check out the preset buttons to see ai generated images combined with their ai generated depth maps.<br /><br />
+        To generate the images I used in the "presets", I played around with Dall-E and the Bing AI image generator. For the first prompt I tried to create something with a video game feel, and used key words such as "unreal engine 4K render scenic" I think the Bing AI is really good at this specific aesthetic. The second preset I used the prompt "hyper realistic human face painted with rainbow colors, close up nikon photo 4k". The third prompt was "Still life dark fantasy bright colors and fruits in the foreground" and finally for the fourth I wanted to do something I bit ridiculous: "a caravaggio oil painting of a cow being abducted by aliens. Realistic 4k render"
+        <br /><br />To get the depth images I tried out a few different free online services such as Midas which is a google colab available for free. ZoeDepth and Artificial Studio are two free services that you can upload an image to and it will give you back a depth map. I settled on using Artifial Studio.
+        <br /><br />You can check out the code and additional info on <a href="https://github.com/EvanDElia/testing-nextjs-with-v0/" target="_blank">Github</a> 
+      </div>
+    </div>
+  )
+}
 
 export function ThreejsPlane() {
-
+  const [openModal, setOpenModal] = useState(false)
   const light = useControls({lightIntensity: { value: 7, min: 0, max: 50, step: 0.5 }})
   return (
-    <div className="w-full h-screen" style={{
-      position: 'absolute',
+    <div className="w-full h-screen absolute" style={{
       top: 0,
-      left:0
+      left: 0
     }}>
-      <Canvas camera={{ position: [0, 2, 9], fov: 75 }}>
+      <Canvas camera={{ position: [0, 2, 8], fov: 75 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[2, 2, 2]} intensity={light.lightIntensity} color={'#f0f'} />
         <Plane />
@@ -200,10 +236,15 @@ export function ThreejsPlane() {
       <SpeedInsights />
 
       <GradientButtons presets={PresetFunction}/>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-end justify-center">
+
+      <Modal open={openModal}></Modal>
+      <footer className="row-start-3 flex gap-6 flex-wrap items-end justify-end">
         <button
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          onClick = {() => {console.log('test')}}
+          style={{
+            paddingRight: '20px'
+          }} 
+          onClick = {() => {console.log('test'); setOpenModal(!openModal)}}
         >
           <Image
             aria-hidden
