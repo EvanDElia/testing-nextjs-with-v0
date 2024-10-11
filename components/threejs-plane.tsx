@@ -186,8 +186,10 @@ const Modal: React.FC<ModalProps> = ({open}) => {
   const ref = useRef<HTMLDivElement>(null)
   if (open && ref?.current) {
     ref.current.style.opacity = '1';
+    (ref.current.children as HTMLCollectionOf<HTMLElement>)[0].style.pointerEvents = 'all'
   } else if (ref?.current) {
     ref.current.style.opacity = '0';
+    (ref.current.children as HTMLCollectionOf<HTMLElement>)[0].style.pointerEvents = 'none'
   }
   return (
     <div ref={ref} className="absolute flex flex-col w-full h-screen justify-center items-center" style={{
@@ -206,7 +208,7 @@ const Modal: React.FC<ModalProps> = ({open}) => {
         padding: '24px',
         textAlign: 'justify',
         overflowY: 'auto',
-        pointerEvents: 'all'
+        pointerEvents: 'none'
       }}>
         Click and drag to move the camera around the scene. You can also use a scroll wheel to zoom and right click to pan the camera. Use the gui at the top right to add your own image and depth map to be applied to the plane. You can also change the intensity of the environment map and the environment map blur. And check out the preset buttons to see ai generated images combined with their ai generated depth maps.<br /><br />
         To generate the images I used in the "presets", I played around with Dall-E and the Bing AI image generator. For the first prompt I tried to create something with a video game feel, and used key words such as "unreal engine 4K render scenic" I think the Bing AI is really good at this specific aesthetic. The second preset I used the prompt "hyper realistic human face painted with rainbow colors, close up nikon photo 4k". The third prompt was "Still life dark fantasy bright colors and fruits in the foreground" and finally for the fourth I wanted to do something I bit ridiculous: "a caravaggio oil painting of a cow being abducted by aliens. Realistic 4k render"
