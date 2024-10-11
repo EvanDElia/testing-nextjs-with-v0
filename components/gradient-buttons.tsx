@@ -7,6 +7,11 @@ interface GradientButtonProps {
   gradientStart: string
   gradientEnd: string
   emoji: string
+  onClick: Function
+}
+
+interface GradientButtonsProps {
+  presets: Function
 }
 
 const TextTransition = ({ isHovered, index }: { isHovered: boolean, index: number }) => {
@@ -58,7 +63,7 @@ const TextTransition = ({ isHovered, index }: { isHovered: boolean, index: numbe
   )
 }
 
-const GradientButton: React.FC<GradientButtonProps> = ({ index, gradientStart, gradientEnd, emoji }) => {
+const GradientButton: React.FC<GradientButtonProps> = ({ onClick, index, gradientStart, gradientEnd, emoji }) => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -71,6 +76,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({ index, gradientStart, g
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onClick(index)}
     >
       <span
         className="absolute inset-0 rounded-full"
@@ -100,13 +106,15 @@ const GradientButton: React.FC<GradientButtonProps> = ({ index, gradientStart, g
   )
 }
 
-export default function Component() {
+const Component: React.FC<GradientButtonsProps> = ({presets}) => {
   return (
     <div className="preset_container absolute min-h-screen flex flex-col items-center justify-center space-y-4">
-      <GradientButton index={1} gradientStart="#ff00ff" gradientEnd="#00ffff" emoji="🚀" />
-      <GradientButton index={2} gradientStart="#ff0000" gradientEnd="#ffff00" emoji="🌟" />
-      <GradientButton index={3} gradientStart="#00ff00" gradientEnd="#0000ff" emoji="🎉" />
-      <GradientButton index={4} gradientStart="#ff8c00" gradientEnd="#ff0080" emoji="🌈" />
+      <GradientButton onClick={presets} index={1} gradientStart="#ff00ff" gradientEnd="#00ffff" emoji="🚀" />
+      <GradientButton onClick={presets} index={2} gradientStart="#ff0000" gradientEnd="#ffff00" emoji="🌟" />
+      <GradientButton onClick={presets} index={3} gradientStart="#00ff00" gradientEnd="#0000ff" emoji="🎉" />
+      <GradientButton onClick={presets} index={4} gradientStart="#ff8c00" gradientEnd="#ff0080" emoji="🌈" />
     </div>
   )
 }
+
+export default Component

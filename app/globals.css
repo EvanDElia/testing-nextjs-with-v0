@@ -28,10 +28,23 @@ body {
 
 footer {
   z-index: 999;
+  height: 95%;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  width: 100%;
 }
 
 .preset_container {
   top: 0;
   left: 20px;
   z-index: 999;
+}
+
+button {
+  pointer-events: all;
+}
+
+.file-icon {
+  filter: brightness(200%);
 }
