@@ -16,7 +16,7 @@ import Image from "next/image";
 
 let globalMaterialRef: any
 
-let presetFunction: Function = (index: number) => {
+const PresetFunction: any = (index: number) => {
   const materialRef = globalMaterialRef
   const texture = useLoader(TextureLoader, '/aitest.jfif')
   const displacementMap = useLoader(TextureLoader, '/depth1.png')
@@ -199,10 +199,11 @@ export function ThreejsPlane() {
       <Stats />
       <SpeedInsights />
 
-      <GradientButtons presets={presetFunction}/>
+      <GradientButtons presets={PresetFunction}/>
       <footer className="row-start-3 flex gap-6 flex-wrap items-end justify-center">
         <button
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          onClick = {() => {console.log('test')}}
         >
           <Image
             aria-hidden

@@ -7,11 +7,11 @@ interface GradientButtonProps {
   gradientStart: string
   gradientEnd: string
   emoji: string
-  onClick: Function
+  onClick: any
 }
 
 interface GradientButtonsProps {
-  presets: Function
+  presets: any
 }
 
 const TextTransition = ({ isHovered, index }: { isHovered: boolean, index: number }) => {
