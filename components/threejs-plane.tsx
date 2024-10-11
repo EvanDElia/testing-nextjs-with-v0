@@ -98,22 +98,23 @@ function Plane() {
   const texture = useLoader(TextureLoader, '/aitest.jfif')
   const displacementMap = useLoader(TextureLoader, '/depth1.png')
 
-  // preload textures for the presets now
-
-  const presetTexture2 = useLoader(TextureLoader, '/rainbowface.jfif')
-  const presetDisplacement2 = useLoader(TextureLoader, '/rainbowfacedepthmap.jpg')
-
-  const presetTexture3 = useLoader(TextureLoader, '/skullsstilllife.jfif')
-  const presetDisplacement3 = useLoader(TextureLoader, '/skullsdepthmap.jpg')
-
-  const presetTexture4 = useLoader(TextureLoader, '/cow.jfif')
-  const presetDisplacement4 = useLoader(TextureLoader, '/cowdepthmap.jpg')
-
-  console.log(presetTexture2, presetDisplacement2)
-  console.log(presetTexture3, presetDisplacement3)
-  console.log(presetTexture4, presetDisplacement4)
-  console.log("Preset Textures Loaded")
-
+  setTimeout(() => {
+    // preload textures for the presets now
+    const presetTexture2 = useLoader(TextureLoader, '/rainbowface.jfif')
+    const presetDisplacement2 = useLoader(TextureLoader, '/rainbowfacedepthmap.jpg')
+  
+    const presetTexture3 = useLoader(TextureLoader, '/skullsstilllife.jfif')
+    const presetDisplacement3 = useLoader(TextureLoader, '/skullsdepthmap.jpg')
+  
+    const presetTexture4 = useLoader(TextureLoader, '/cow.jfif')
+    const presetDisplacement4 = useLoader(TextureLoader, '/cowdepthmap.jpg')
+  
+    console.log(presetTexture2, presetDisplacement2)
+    console.log(presetTexture3, presetDisplacement3)
+    console.log(presetTexture4, presetDisplacement4)
+    console.log("Preset Textures Loaded")
+  }, 1000)
+  
   const materialRef = useRef<MeshStandardMaterial>(null)
   globalMaterialRef = materialRef
 
