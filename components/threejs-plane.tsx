@@ -22,13 +22,13 @@ const PresetFunction: any = (index: number) => {
   const displacementMap = useLoader(TextureLoader, '/depth1.png')
 
   const presetTexture2 = useLoader(TextureLoader, '/rainbowface.jfif')
-  const presetDisplacement2 = useLoader(TextureLoader, '/rainbowfacedepthmap.png')
+  const presetDisplacement2 = useLoader(TextureLoader, '/rainbowfacedepthmap.jpg')
 
   const presetTexture3 = useLoader(TextureLoader, '/skullsstilllife.jfif')
-  const presetDisplacement3 = useLoader(TextureLoader, '/skullsdepthmap.png')
+  const presetDisplacement3 = useLoader(TextureLoader, '/skullsdepthmap.jpg')
 
   const presetTexture4 = useLoader(TextureLoader, '/cow.jfif')
-  const presetDisplacement4 = useLoader(TextureLoader, '/cowdepthmap.png')
+  const presetDisplacement4 = useLoader(TextureLoader, '/cowdepthmap.jpg')
 
   if (materialRef && materialRef.current) {
     switch (index) {
@@ -101,13 +101,13 @@ function Plane() {
   // preload textures for the presets now
 
   const presetTexture2 = useLoader(TextureLoader, '/rainbowface.jfif')
-  const presetDisplacement2 = useLoader(TextureLoader, '/rainbowfacedepthmap.png')
+  const presetDisplacement2 = useLoader(TextureLoader, '/rainbowfacedepthmap.jpg')
 
   const presetTexture3 = useLoader(TextureLoader, '/skullsstilllife.jfif')
-  const presetDisplacement3 = useLoader(TextureLoader, '/skullsdepthmap.png')
+  const presetDisplacement3 = useLoader(TextureLoader, '/skullsdepthmap.jpg')
 
   const presetTexture4 = useLoader(TextureLoader, '/cow.jfif')
-  const presetDisplacement4 = useLoader(TextureLoader, '/cowdepthmap.png')
+  const presetDisplacement4 = useLoader(TextureLoader, '/cowdepthmap.jpg')
 
   console.log(presetTexture2, presetDisplacement2)
   console.log(presetTexture3, presetDisplacement3)
