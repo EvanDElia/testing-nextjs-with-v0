@@ -195,7 +195,8 @@ const Modal: React.FC<ModalProps> = ({open}) => {
       margin: '0 auto',
       backdropFilter: 'blur(9px)',
       transition: 'opacity 0.2s ease-out',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      opacity:'0'
     }}>
       <div style={{
         width: '500px',
