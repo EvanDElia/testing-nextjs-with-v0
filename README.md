@@ -16,5 +16,7 @@ use `npm run dev` to run locally
 
 Click and drag to move the camera around the scene. You can also use a scroll wheel to zoom and right click to pan the camera. Use the gui at the top right to add your own image and depth map to be applied to the plane. You can also change the intensity of the environment map and the environment map blur. And check out the preset buttons to see ai generated images combined with their ai generated depth maps.
 
+The entry point of the project is `page.tsx`. From there, the 3D is all done with threejs inside of `threejs-plane.tsx`. To edit the preset buttons, see `gradient-buttons.tsx`
+
 This project is deployed using vercel.
 ![Screenshot 2024-09-25 030503](https://github.com/user-attachments/assets/3bf31361-185d-41ec-aa6a-bafd89e3ac4e)
